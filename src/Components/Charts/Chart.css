@@ -1,0 +1,45 @@
+
+
+.barchart{
+    padding-left: 1008px;
+    border:darkgreen;
+    cursor:move;  
+}
+.linechart{
+    padding-left: 1008px;
+    border:darkgreen;
+    cursor: pointer;
+   
+}
+.piechart{
+    padding-left: 1008px;
+    border:darkgreen;
+    cursor: pointer;
+}
+.redarchart{
+    padding-left: 1008px;
+    border:darkgreen;
+    cursor: pointer;
+}
+.chart{
+    margin: 20px;
+    padding: 20px;
+    -webkit-box-shadow: 0px 0px 11px 1px #000000; 
+    box-shadow: 0px 0px 11px -1px #000000;
+    
+}
+.chartTitle{
+margin-bottom: 20px;
+flex:2
+}
+.chartName{
+   flex:1; 
+}
+.chartData{
+    display: flex;
+}
+.selection{
+    margin: 10px;
+    padding: 10px;
+    
+}

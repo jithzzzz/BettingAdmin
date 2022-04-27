@@ -1,0 +1,18 @@
+.analytics{
+    padding-top: 70px;
+    padding-left: 10px;
+    flex: 4;
+}
+.analyticsWrapper{
+    display: flex;
+}
+.analyticsTitle{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    
+}
+.leftChart{
+ flex: 2;
+}
+.rightChart{
+    flex: 4;
+}

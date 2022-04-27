@@ -1,0 +1,16 @@
+.overview{
+    flex: 4;
+    padding-top: 70px;
+    padding-left: 10px;
+}
+.overViewTop{
+    display: flex;
+
+}
+.topLeft,.topRight{
+    flex: 1;
+}
+.topRight{
+    padding: 20px;
+    margin: 20px;
+}
