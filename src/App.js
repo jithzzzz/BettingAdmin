@@ -18,32 +18,30 @@ import NewUser from "./Components/Pages/NewUserPage/NewUser";
 import AnalyticsPage from "./Components/Pages/AnalyticsPage/AnalyticsPage";
 import ManageAdmin from "./Components/Pages/ManageAdmin/ManageAdmin";
 import OverView from "./Components/Pages/OverView/OverView";
-
+import "./firebase.config"
 
 
 
 function App() {
   return (
-    
-      <Router>
+    <Router>
       <Header />
       <div className='container'>
-      <SideMenu/>
-      <div className="otherpage">
-      <Switch >
-        <Route exact path="/"><Home/></Route>
-        <Route path="/users"><UserList/></Route>
-        <Route path="/user/:userId"><User/></Route>
-        <Route path="/newUser"><NewUser/></Route>
-        <Route path="/analytics"><AnalyticsPage/></Route>
-        <Route path="/addAdmin"><ManageAdmin/></Route>
-        <Route path="/overview"><OverView/></Route>
-        
-      </Switch>
+        <SideMenu />
+        <div className="otherpage">
+          <Switch >
+            <Route exact path="/"><Home /></Route>
+            <Route path="/users"><UserList /></Route>
+            <Route path="/user/:userId"><User /></Route>
+            <Route path="/newUser"><NewUser /></Route>
+            <Route path="/analytics"><AnalyticsPage /></Route>
+            <Route path="/addAdmin"><ManageAdmin /></Route>
+            <Route path="/overview"><OverView /></Route>
+          </Switch>
+        </div>
       </div>
-      </div>
-      </Router>
-    
+    </Router>
+
     //  <>
 
     //<CssBaseline/>
