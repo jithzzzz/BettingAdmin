@@ -20,11 +20,14 @@ function SideMenu() {
                         <Link to="/overview" className='link'>
                             <li className='sidebarListItems'><MonetizationOn className='sidebarIcon' />Overview</li>
                         </Link>
-
+                        <Link to="/withdraw" className='link'>
+                            <li className='sidebarListItems'><Timeline className='sidebarIcon' />Withdrow Request</li>
+                        </Link>
+                        <li className='sidebarListItems'><TrendingUp className='sidebarIcon' />Feedback</li>
                     </ul>
                 </div>
                 {/* QuickMenu */}
-                <div className='sidebarMenu'>
+                {/* <div className='sidebarMenu'>
                     <h3 className='sidebarTitle'>QuickMenu</h3>
                     <ul className='sidebarList'>
                         <li className='sidebarListItems'><Timeline className='sidebarIcon' />Shedule Bet</li>
@@ -35,9 +38,9 @@ function SideMenu() {
                         <li className='sidebarListItems'><TrendingUp className='sidebarIcon' />Transations</li>
                         <li className='sidebarListItems'><TrendingUp className='sidebarIcon' />Report</li>
                     </ul>
-                </div>
+                </div> */}
                 {/* NOTIFICATIONS */}
-                <div className='sidebarMenu'>
+                {/* <div className='sidebarMenu'>
                     <h3 className='sidebarTitle'>Notifications</h3>
                     <ul className='sidebarList'>
                         <li className='sidebarListItems'><LineStyle className='sidebarIcon' />Mail</li>
@@ -45,7 +48,7 @@ function SideMenu() {
                         <li className='sidebarListItems'><TrendingUp className='sidebarIcon' />Messages</li>
                         <li className='sidebarListItems'><TrendingUp className='sidebarIcon' />Feedback</li>
                     </ul>
-                </div>
+                </div> */}
                 {/* STAFF */}
                 <div className='sidebarMenu'>
                     <h3 className='sidebarTitle'>Staff</h3>
@@ -56,9 +59,6 @@ function SideMenu() {
                         <Link to="/newUser" className='link'>
                             <li className='sidebarListItems'><TrendingUp className='sidebarIcon' />Manage User</li>
                         </Link>
-                        <li className='sidebarListItems'><Timeline className='sidebarIcon' />Analytics</li>
-                        <li className='sidebarListItems'><TrendingUp className='sidebarIcon' />Reports</li>
-
                     </ul>
                 </div>
 

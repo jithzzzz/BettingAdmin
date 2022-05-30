@@ -1,16 +1,19 @@
-.overview{
-    flex: 4;
-    padding-top: 70px;
-    padding-left: 10px;
+.overview {
+  flex: 4;
+  padding-top: 70px;
+  padding-left: 10px;
 }
-.overViewTop{
-    display: flex;
 
+.overViewTop {
+  display: flex;
 }
-.topLeft,.topRight{
-    flex: 1;
+
+.topLeft,
+.topRight {
+  flex: 1;
 }
-.topRight{
-    padding: 20px;
-    margin: 20px;
+
+.topRight {
+  padding: 20px;
+  margin: 20px;
 }

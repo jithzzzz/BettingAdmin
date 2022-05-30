@@ -42,16 +42,17 @@
   color: #fff;
   font-size: 100px;
 } */
-.container{
-display: flex;
-font-family: 'PT Sans', sans-serif;
-margin-top: 10px;
+.container {
+  display: flex;
+  font-family: 'PT Sans', sans-serif;
+  margin-top: 10px;
 }
-.otherpage{
+
+.otherpage {
   flex: 4;
 }
-.link{
+
+.link {
   text-decoration: none;
   color: inherit;
 }
-

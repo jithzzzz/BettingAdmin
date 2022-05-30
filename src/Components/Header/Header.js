@@ -1,9 +1,10 @@
 import React from 'react'
 import './Header.css'
-import {NotificationsNone,Settings,PowerSettingsNew,AddCircle} from '@material-ui/icons';
-import { Link } from 'react-router-dom';
-
+import { NotificationsNone, Settings, PowerSettingsNew, AddCircle } from '@material-ui/icons';
+import { Link } from 'react-router-dom'
+import { useAuth } from "../../Auth/Auth"
 function Header() {
+  const auth = useAuth()
   return (
     <div>
       <div className='topbar'>
@@ -12,27 +13,26 @@ function Header() {
             <span className='logo'>Betting Admin</span>
           </div>
           <div className='topright'>
-          <div className='para'>
+            <div className='para'>
               <p className='para'>Welcome Admin</p>
             </div>
-            <div className='topbarIconContainer'>
-              <PowerSettingsNew/>
-             
+            <div className='topbarIconContainer' onClick={() => { auth.logout() }}>
+              <PowerSettingsNew />
             </div>
             <div className='topbarIconContainer'>
               <Link to="/addAdmin" className='link'>
-              <AddCircle/>
+                <AddCircle />
               </Link>
             </div>
             <div className='topbarIconContainer'>
-              <NotificationsNone/>
+              <NotificationsNone />
               <span className='topiconBadge'>2</span>
             </div>
             <div className='topbarIconContainer'>
-              <Settings/>
+              <Settings />
             </div>
-            <img src='avatar.png'alt=''className='topavatar'/>
-            </div>
+            <img src='avatar.png' alt='' className='topavatar' />
+          </div>
         </div>
       </div>
     </div>
