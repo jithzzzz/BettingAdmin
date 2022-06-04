@@ -15,6 +15,8 @@ import PropTypes from 'prop-types'
 import "firebase/firestore"
 import { collection, getDocs, addDoc, query, where, doc, orderBy, limit, updateDoc, onSnapshot } from "firebase/firestore"
 import { db } from "../../../firebase.config"
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -86,7 +88,12 @@ export default function WithdrawRequest() {
           commission: doc?.data()?.commission,
           paymentType: doc?.data()?.paymentType,
           transctionDate: doc?.data()?.transctionDate,
-          transctionStatus: doc?.data()?.transctionStatus
+          transctionStatus: doc?.data()?.transctionStatus,
+          UPI: doc?.data()?.UPI,
+          Account_number: doc?.data()?.Account_number,
+          Bank_name: doc?.data()?.Bank_name,
+          IFC_code: doc?.data()?.IFC_code,
+          Account_holder_name: doc?.data()?.Account_holder_name
         })
       })
       setTransData(transTmpData)
@@ -123,18 +130,39 @@ export default function WithdrawRequest() {
               <Grid item xs={2} sm={4} md={4} key={index}>
                 <Item>
                   <Card >
-                    <CardContent>
-                      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        Amount : {item.amount}
+                    <CardContent display="flex" justifyContent="flex-start">
+                      <Box
+                        display="flex"
+                        flexDirection="row"
+                        justifyContent="space-between"
+                      >
+                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                          <Chip label={` Amount : ${item?.amount}`} color="primary" />
+                        </Typography>
+                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                          <Chip label={`Commission : ${item?.commission}`} color="success" />
+                        </Typography>
+                      </Box>
+                      <Typography sx={{ fontSize: 14 }} textAlign="left" color="text.secondary" gutterBottom>
+                        Payment Type : {item?.paymentType}
                       </Typography>
-                      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        Commission : {item.commission}
+                      <Typography sx={{ fontSize: 14 }} textAlign="left" color="text.secondary" gutterBottom>
+                        Transction Status : {item?.transctionStatus}
                       </Typography>
-                      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        Payment Type : {item.paymentType}
+                      <Typography sx={{ fontSize: 14 }} textAlign="left" color="text.secondary" gutterBottom>
+                        Account Holder Name : {item?.Account_holder_name}
                       </Typography>
-                      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        Transction Status : {item.transctionStatus}
+                      <Typography sx={{ fontSize: 14 }} textAlign="left" color="text.secondary" gutterBottom>
+                        Account Number : {item?.Account_number}
+                      </Typography>
+                      <Typography sx={{ fontSize: 14 }} textAlign="left" color="text.secondary" gutterBottom>
+                        Bank Name : {item?.Bank_name}
+                      </Typography>
+                      <Typography sx={{ fontSize: 14 }} textAlign="left" color="text.secondary" gutterBottom>
+                        IFC Code : {item?.IFC_code}
+                      </Typography>
+                      <Typography sx={{ fontSize: 14 }} textAlign="left" color="text.secondary" gutterBottom>
+                        UPI : {item?.UPI}
                       </Typography>
                     </CardContent>
                     <CardActions>
