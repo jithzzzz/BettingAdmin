@@ -100,31 +100,33 @@ function Home() {
   }
 
   const getMatchUpdate = async () => {
-    const matchRef = collection(db, "myMatches")
-    const g = [spellData_Pekka?.[0]?.id, spellData_Healer?.[0]?.id, spellData_Wizard?.[0]?.id, spellData_Archer?.[0]?.id]
-    const matchQuery = query(matchRef, where("spellId", "in", g))
-    const matchQuerySnaphshot = await getDocs(matchQuery)
-    let matchmpData = []
-    matchQuerySnaphshot.forEach((doc) => {
-      matchmpData.push({
-        doc_Id: doc?.id, data: doc?.data()
+    const matchRef = query(collection(db, "myMatches"))
+    const myMatches = onSnapshot(matchRef, (querySnapshot) => {
+      console.log("getMatchUpdate EXICUTED")
+      let matchmpData = []
+      querySnapshot.forEach((doc) => {
+        matchmpData.push({ doc_Id: doc?.id, data: doc?.data() })
       })
+      setMatchData(matchmpData)
     })
-    console.log(spellData_Pekka?.[0]?.spell_Id, " MMM")
-    setMatchData(matchmpData)
   }
+
+  useEffect(() => {
+    console.log(matchData?.length, "HHHHHHHHHHHHHHHHHHHH")
+  }, [matchData])
 
   return (
     <div className='home'>
-      <FeaturedInfo />
-      <p onClick={() => {
-        console.log(spellData_Pekka)
-        console.log(spellData_Healer)
-        console.log(spellData_Wizard)
-        console.log(spellData_Archer)
-        console.log(matchData)
-      }}>{"yyyy"}</p>
-      <BarCharts dataset={matchData} key={[currentTimeSecond]} pekka={spellData_Pekka} />
+      {/* <FeaturedInfo /> */}
+      <BarCharts
+        dataset={matchData}
+        key={[matchData]}
+        pekka={spellData_Pekka}
+        PID={spellData_Pekka?.[0]?.id}
+        HID={spellData_Healer?.[0]?.id}
+        WID={spellData_Wizard?.[0]?.id}
+        AID={spellData_Archer?.[0]?.id}
+      />
       <div className='homeWidget'>
         <WidgetSmall />
         <WidgetLarge />

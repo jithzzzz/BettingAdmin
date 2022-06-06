@@ -28,6 +28,8 @@ import ManageAdmin from "./Components/Pages/ManageAdmin/ManageAdmin"
 import OverView from "./Components/Pages/OverView/OverView"
 import WithdrawRequest from "./Components/Pages/WithdrawRequest/WithdrawRequest"
 import Login from "./Components/Pages/Login/Login"
+import Stats from "./Components/Pages/Sats/Stats"
+import Betting from "./Components/Pages/Betting/Betting"
 import "./firebase.config"
 import { AuthProvider, useAuth } from "../src/Auth/Auth"
 import { RequireAuth } from "./Auth/RequireAuth"
@@ -64,6 +66,8 @@ function App() {
           <Route path="/addAdmin" element={<RequireAuth><ManageAdmin /></RequireAuth>}></Route>
           <Route path="/overview" element={<RequireAuth><OverView /></RequireAuth>}></Route>
           <Route path="/withdraw" element={<RequireAuth><WithdrawRequest /></RequireAuth>}></Route>
+          <Route path="/stats" element={<RequireAuth><Stats /></RequireAuth>}></Route>
+          <Route path="/betting" element={<RequireAuth><Betting /></RequireAuth>}></Route>
           <Route path="/login" element={<Login />}></Route>
         </Routes>
 

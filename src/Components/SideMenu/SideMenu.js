@@ -14,16 +14,22 @@ function SideMenu() {
                         <Link to="/" className='link'>
                             <li className='sidebarListItems active'><LineStyle className='sidebarIcon' />Home</li>
                         </Link>
-                        <Link to="/analytics" className='link'>
+                        <Link to="/stats" className='link'>
+                            <li className='sidebarListItems'><LineStyle className='sidebarIcon' />Stats</li>
+                        </Link>
+                        <Link to="/betting" className='link'>
+                            <li className='sidebarListItems'><LineStyle className='sidebarIcon' />Betting</li>
+                        </Link>
+                        {/* <Link to="/analytics" className='link'>
                             <li className='sidebarListItems'><Timeline className='sidebarIcon' />Analytics</li>
-                        </Link>
-                        <Link to="/overview" className='link'>
+                        </Link> */}
+                        {/* <Link to="/overview" className='link'>
                             <li className='sidebarListItems'><MonetizationOn className='sidebarIcon' />Overview</li>
-                        </Link>
+                        </Link> */}
                         <Link to="/withdraw" className='link'>
                             <li className='sidebarListItems'><Timeline className='sidebarIcon' />Withdrow Request</li>
                         </Link>
-                        <li className='sidebarListItems'><TrendingUp className='sidebarIcon' />Feedback</li>
+                        {/* <li className='sidebarListItems'><TrendingUp className='sidebarIcon' />Feedback</li> */}
                     </ul>
                 </div>
                 {/* QuickMenu */}

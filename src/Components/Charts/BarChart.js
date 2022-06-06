@@ -67,19 +67,20 @@ TabPanel.propTypes = {
 };
 
 
-function BarCharts({ dataset, pekka }) {
+function BarCharts({ dataset, pekka, PID, HID, WID, AID }) {
   const [chartstate, setChartState] = useState("")
   const [value, setValue] = React.useState(0) // tab vale
   const [data, setData] = useState()
   const [spellId, setSpellId] = useState(0)
 
   useEffect(() => {
-    console.log(pekka?.[0]?.spell_Id, " : YYYYYY")
+    // console.log(pekka?.[0]?.spell_Id, " : YYYYYY")
+    // console.log(dataset)
     setData(dataset)
     setSpellId(`${pekka?.[0]?.spell_date}/${pekka?.[0]?.spell_Id}`)
   }, [pekka])
 
-  const ChartSmall = ({ gameName }) => {
+  const ChartSmall = ({ gameName, id }) => {
     let red = 0
     let green = 0
     let gold = 0
@@ -95,33 +96,33 @@ function BarCharts({ dataset, pekka }) {
     let nine = 0
 
     data?.map((item, index) => {
-      if (item?.data?.game_name == gameName) {
+      if (item?.data?.game_name == gameName && item?.data?.spellId == id) {
         if (item?.data?.color == "Red") {
-          red = red + 1
+          red = red + item?.data?.bettingAmount
         } else if (item?.data?.color == "Green") {
-          green = green + 1
+          green = green + item?.data?.bettingAmount
         } else if (item?.data?.color == "Gold") {
-          gold = gold + 1
+          gold = gold + item?.data?.bettingAmount
         } else if (item?.data?.number == 0) {
-          zero = zero + 1
+          zero = zero + item?.data?.bettingAmount
         } else if (item?.data?.number == 1) {
-          one = one + 1
+          one = one + item?.data?.bettingAmount
         } else if (item?.data?.number == 2) {
-          two = two + 1
+          two = two + item?.data?.bettingAmount
         } else if (item?.data?.number == 3) {
-          three = three + 1
+          three = three + item?.data?.bettingAmount
         } else if (item?.data?.number == 4) {
-          four = four + 1
+          four = four + item?.data?.bettingAmount
         } else if (item?.data?.number == 5) {
-          five = five + 1
+          five = five + item?.data?.bettingAmount
         } else if (item?.data?.number == 6) {
-          six = six + 1
+          six = six + item?.data?.bettingAmount
         } else if (item?.data?.number == 7) {
-          seven = seven + 1
+          seven = seven + item?.data?.bettingAmount
         } else if (item?.data?.number == 8) {
-          eight = eight + 1
+          eight = eight + item?.data?.bettingAmount
         } else if (item?.data?.number == 9) {
-          nine = nine + 1
+          nine = nine + item?.data?.bettingAmount
         }
       }
 
@@ -153,15 +154,17 @@ function BarCharts({ dataset, pekka }) {
         <Bar dataKey="red" fill="red" />
         <Bar dataKey="green" fill="green" />
         <Bar dataKey="gold" fill="gold" />
+
+        <Bar dataKey="N0" fill="gray" />
         <Bar dataKey="N1" fill="gray" />
-        <Bar dataKey="N2" fill="blue" />
-        <Bar dataKey="N3" fill="black" />
-        <Bar dataKey="N4" fill="black" />
-        <Bar dataKey="N5" fill="black" />
-        <Bar dataKey="N6" fill="black" />
-        <Bar dataKey="N7" fill="black" />
-        <Bar dataKey="N8" fill="black" />
-        <Bar dataKey="N9" fill="black" />
+        <Bar dataKey="N2" fill="gray" />
+        <Bar dataKey="N3" fill="gray" />
+        <Bar dataKey="N4" fill="gray" />
+        <Bar dataKey="N5" fill="gray" />
+        <Bar dataKey="N6" fill="gray" />
+        <Bar dataKey="N7" fill="gray" />
+        <Bar dataKey="N8" fill="gray" />
+        <Bar dataKey="N9" fill="gray" />
       </BarChart>
     )
   }
@@ -245,11 +248,8 @@ function BarCharts({ dataset, pekka }) {
                     Pekka
                   </Typography>
                   {/**Chart */}
-                  <ChartSmall gameName="Pekka" key={data} />
+                  <ChartSmall gameName="Pekka" key={data} id={PID} />
                 </CardContent>
-                <CardActions>
-                  <Button size="small">Approve</Button>
-                </CardActions>
               </Card>
             </Item>
           </Grid>
@@ -258,18 +258,11 @@ function BarCharts({ dataset, pekka }) {
               <Card >
                 <CardContent>
                   <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-
+                    Healer
                   </Typography>
-                  {/* <MicroBarChart
-                    width={200}
-                    height={50}
-                    hoverColor="rgb(161,130,214)"
-                    fillColor="rgb(210,193,237)"
-                  /> */}
+                  {/**Chart */}
+                  <ChartSmall gameName="Healer" key={data} id={HID} />
                 </CardContent>
-                <CardActions>
-                  <Button size="small">Approve</Button>
-                </CardActions>
               </Card>
             </Item>
           </Grid>
@@ -278,18 +271,11 @@ function BarCharts({ dataset, pekka }) {
               <Card >
                 <CardContent>
                   <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Pekka
+                    Wizard
                   </Typography>
-                  {/* <MicroBarChart
-                    width={200}
-                    height={50}
-                    hoverColor="rgb(161,130,214)"
-                    fillColor="rgb(210,193,237)"
-                  /> */}
+                  {/**Chart */}
+                  <ChartSmall gameName="Wizard" key={data} id={WID} />
                 </CardContent>
-                <CardActions>
-                  <Button size="small">Approve</Button>
-                </CardActions>
               </Card>
             </Item>
           </Grid>
@@ -298,18 +284,11 @@ function BarCharts({ dataset, pekka }) {
               <Card >
                 <CardContent>
                   <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    Pekka
+                    Archer
                   </Typography>
-                  {/* <MicroBarChart
-                    width={200}
-                    height={50}
-                    hoverColor="rgb(161,130,214)"
-                    fillColor="rgb(210,193,237)"
-                  /> */}
+                  {/**Chart */}
+                  <ChartSmall gameName="Archer" key={data} id={AID} />
                 </CardContent>
-                <CardActions>
-                  <Button size="small">Approve</Button>
-                </CardActions>
               </Card>
             </Item>
           </Grid>
