@@ -13,12 +13,9 @@ import TableContainer from '@mui/material/TableContainer'
 import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
-import { useField } from 'formik'
 import "firebase/firestore"
 import { collection, getDocs, addDoc, query, where, doc, orderBy, limit, updateDoc, onSnapshot } from "firebase/firestore"
 import { db } from "../../../firebase.config"
-import { xor } from 'lodash'
-import { async } from '@firebase/util'
 
 export default function Betting() {
   const [date, setDate] = React.useState('')

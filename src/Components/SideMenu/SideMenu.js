@@ -20,6 +20,9 @@ function SideMenu() {
                         <Link to="/betting" className='link'>
                             <li className='sidebarListItems'><LineStyle className='sidebarIcon' />Betting</li>
                         </Link>
+                        <Link to="/result" className='link'>
+                            <li className='sidebarListItems'><LineStyle className='sidebarIcon' />Result</li>
+                        </Link>
                         {/* <Link to="/analytics" className='link'>
                             <li className='sidebarListItems'><Timeline className='sidebarIcon' />Analytics</li>
                         </Link> */}

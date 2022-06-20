@@ -30,6 +30,8 @@ import WithdrawRequest from "./Components/Pages/WithdrawRequest/WithdrawRequest"
 import Login from "./Components/Pages/Login/Login"
 import Stats from "./Components/Pages/Sats/Stats"
 import Betting from "./Components/Pages/Betting/Betting"
+import ManualUpdate from "./Components/Pages/ManualUpdate/ManualUpdate"
+import Result from "./Components/Pages/Results/Result"
 import "./firebase.config"
 import { AuthProvider, useAuth } from "../src/Auth/Auth"
 import { RequireAuth } from "./Auth/RequireAuth"
@@ -68,6 +70,8 @@ function App() {
           <Route path="/withdraw" element={<RequireAuth><WithdrawRequest /></RequireAuth>}></Route>
           <Route path="/stats" element={<RequireAuth><Stats /></RequireAuth>}></Route>
           <Route path="/betting" element={<RequireAuth><Betting /></RequireAuth>}></Route>
+          <Route path="/manual-update" element={<RequireAuth><ManualUpdate /></RequireAuth>}></Route>
+          <Route path="/result" element={<RequireAuth><Result /></RequireAuth>}></Route>
           <Route path="/login" element={<Login />}></Route>
         </Routes>
 
