@@ -1,112 +1,122 @@
-import React, { useState, useEffect } from 'react'
-import "./Result.css"
-import PropTypes from 'prop-types'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
-import Typography from '@mui/material/Typography'
-import Box from '@mui/material/Box'
-import { DataGrid } from '@mui/x-data-grid'
-import Button from '@mui/material/Button'
-import Modal from '@mui/material/Modal'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import FormControl from '@mui/material/FormControl'
-import Select from '@mui/material/Select'
-import "firebase/firestore"
-import { collection, getDocs, addDoc, query, where, doc, orderBy, limit, updateDoc, onSnapshot } from "firebase/firestore"
-import { db } from "../../../firebase.config"
-import { async } from '@firebase/util'
+import React, { useState, useEffect } from "react";
+import "./Result.css";
+import PropTypes from "prop-types";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import { DataGrid } from "@mui/x-data-grid";
+import Button from "@mui/material/Button";
+import Modal from "@mui/material/Modal";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  query,
+  where,
+  doc,
+  orderBy,
+  limit,
+  updateDoc,
+  onSnapshot,
+} from "firebase/firestore";
+import { db } from "../../../firebase.config";
+import { async } from "@firebase/util";
 
 export default function Result() {
-
-  const [value, setValue] = React.useState(0)
-  const [data, setDate] = useState([])
-  const [open, setOpen] = React.useState(false)
-  const [color, setColor] = React.useState('')
-  const [number, setNumber] = React.useState('')
-  const [updateDatas, setUpdateDatas] = React.useState(undefined)
-
+  const [value, setValue] = React.useState(0);
+  const [data, setDate] = useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [color, setColor] = React.useState("");
+  const [number, setNumber] = React.useState("");
+  const [updateDatas, setUpdateDatas] = React.useState(undefined);
 
   const handleChangeSelectColor = (event) => {
-    setColor(event.target.value)
-  }
+    setColor(event.target.value);
+  };
 
   const handleChangeSelectNumber = (event) => {
-    setNumber(event.target.value)
-  }
+    setNumber(event.target.value);
+  };
 
   const saveData = async () => {
-    console.log(updateDatas)
-    const walletRef = doc(db, updateDatas?.gameName, updateDatas?.doc_Id)
-    let tmpData = updateDatas?.data
-    tmpData["result_color"] = color
-    tmpData["result_number"] = number
+    console.log(updateDatas);
+    const walletRef = doc(db, updateDatas?.gameName, updateDatas?.doc_Id);
+    let tmpData = updateDatas?.data;
+    tmpData["result_color"] = color;
+    tmpData["result_number"] = number;
+    tmpData["status"] = true;
 
-    // Set the "capital" field of the city 'DC'
-    await updateDoc(walletRef, tmpData)
-      .then(data => {
-        console.log(data)
-        handleClose()
-        return data
-      })
-  }
-
-
+    await updateDoc(walletRef, tmpData).then((data) => {
+      console.log(data);
+      handleClose();
+      return data;
+    });
+  };
 
   useEffect(() => {
-    updateData()
-  }, [])
+    updateData();
+  }, []);
 
   useEffect(() => {
-    updateData()
-  }, [value])
+    updateData();
+  }, [value]);
 
   const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
     width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
+    bgcolor: "background.paper",
+    border: "2px solid #000",
     boxShadow: 24,
     p: 4,
   };
 
-  const handleOpen = () => setOpen(true)
+  const handleOpen = () => setOpen(true);
 
   const handleClose = () => {
-    setOpen(false)
-    setNumber('')
-    setColor('')
-    setUpdateDatas(undefined)
-  }
+    setOpen(false);
+    setNumber("");
+    setColor("");
+    setUpdateDatas(undefined);
+  };
 
   const updateData = async () => {
-    let name = ""
-    setDate([])
+    let name = "";
+    setDate([]);
     if (value == 0) {
-      name = "Pekka"
+      name = "Pekka";
     } else if (value == 1) {
-      name = "Healer"
+      name = "Healer";
     } else if (value == 2) {
-      name = "Wizard"
+      name = "Wizard";
     } else if (value == 3) {
-      name = "Archer"
+      name = "Archer";
     }
 
-    let today = new Date()
-    const dd = String(today.getUTCDate()).padStart(2, '0')
-    const mm = String(today.getUTCMonth() + 1).padStart(2, '0')
-    const yyyy = today.getUTCFullYear()
-    let utcH = today.getUTCHours()
-    let utcM = today.getUTCMinutes()
-    let utcdate = mm + '/' + dd + '/' + yyyy
+    let today = new Date();
+    const dd = String(today.getUTCDate()).padStart(2, "0");
+    const mm = String(today.getUTCMonth() + 1).padStart(2, "0");
+    const yyyy = today.getUTCFullYear();
+    let utcH = today.getUTCHours();
+    let utcM = today.getUTCMinutes();
+    let utcdate = mm + "/" + dd + "/" + yyyy;
 
-    const queryRefSpell = collection(db, name)
-    const qSpell = query(queryRefSpell, where("spell_date", "==", utcdate), orderBy("spell_Id", "desc"))
-    const querySnapshotSpell = await getDocs(qSpell)
-    let tmpDataSpell = []
+    const queryRefSpell = collection(db, name);
+    const qSpell = query(
+      queryRefSpell,
+      where("spell_date", "==", utcdate),
+      orderBy("spell_Id", "desc")
+    );
+    const querySnapshotSpell = await getDocs(qSpell);
+    let tmpDataSpell = [];
     querySnapshotSpell.forEach(async (doc) => {
       tmpDataSpell.push({
         id: tmpDataSpell.length + 1,
@@ -119,20 +129,19 @@ export default function Result() {
         total: doc?.data()?.total,
         result: doc?.data()?.result_color,
         gameName: doc?.data()?.gameName,
-        status: doc?.data()?.gameName
-      })
-    })
+        status: doc?.data()?.gameName,
+      });
+    });
 
-    setDate(tmpDataSpell)
-  }
+    setDate(tmpDataSpell);
+  };
 
   const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
-
+    setValue(newValue);
+  };
 
   function TabPanel(props) {
-    const { children, value, index, ...other } = props
+    const { children, value, index, ...other } = props;
 
     return (
       <div
@@ -148,30 +157,30 @@ export default function Result() {
           </Box>
         )}
       </div>
-    )
+    );
   }
 
   TabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,
-  }
+  };
 
   function a11yProps(index) {
     return {
       id: `simple-tab-${index}`,
-      'aria-controls': `simple-tabpanel-${index}`,
-    }
+      "aria-controls": `simple-tabpanel-${index}`,
+    };
   }
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'spell_Id', headerName: 'Spell ID', width: 70 },
-    { field: 'spell_date', headerName: 'Spell Date', width: 130 },
-    { field: "gameName", headerName: 'Game', width: 130 },
-    { field: 'result_color', headerName: 'Result Color', width: 130 },
-    { field: 'result_number', headerName: 'Result Number', width: 130 },
-    { field: 'total', headerName: 'Total', width: 130 },
+    { field: "id", headerName: "ID", width: 70 },
+    { field: "spell_Id", headerName: "Spell ID", width: 70 },
+    { field: "spell_date", headerName: "Spell Date", width: 130 },
+    { field: "gameName", headerName: "Game", width: 130 },
+    { field: "result_color", headerName: "Result Color", width: 130 },
+    { field: "result_number", headerName: "Result Number", width: 130 },
+    { field: "total", headerName: "Total", width: 130 },
     {
       field: "result",
       headerName: "Result",
@@ -179,34 +188,78 @@ export default function Result() {
       renderCell: (params) => {
         return (
           <div>
-            {
-              params?.formattedValue == "Red" ? <div style={{ width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#EB001B" }}></div>
-                : params?.formattedValue == "Green" ? <div style={{ width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#37BB54" }}></div>
-                  : params?.formattedValue == "Gold-Red" ? <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      gap: "2px"
-                    }}
-                  >
-                    <div style={{ width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#FFD700" }}></div>
-                    <div style={{ width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#EB001B" }}></div>
-                  </div>
-                    : params?.formattedValue == "Gold-Green" ? <div
-                      style={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: "2px"
-                      }}
-                    >
-                      <div style={{ width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#FFD700" }}></div>
-                      <div style={{ width: "15px", height: "15px", borderRadius: "50%", backgroundColor: "#37BB54" }}></div>
-                    </div>
-                      : null
-            }
+            {params?.formattedValue == "Red" ? (
+              <div
+                style={{
+                  width: "15px",
+                  height: "15px",
+                  borderRadius: "50%",
+                  backgroundColor: "#EB001B",
+                }}
+              ></div>
+            ) : params?.formattedValue == "Green" ? (
+              <div
+                style={{
+                  width: "15px",
+                  height: "15px",
+                  borderRadius: "50%",
+                  backgroundColor: "#37BB54",
+                }}
+              ></div>
+            ) : params?.formattedValue == "Gold-Red" ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "2px",
+                }}
+              >
+                <div
+                  style={{
+                    width: "15px",
+                    height: "15px",
+                    borderRadius: "50%",
+                    backgroundColor: "#FFD700",
+                  }}
+                ></div>
+                <div
+                  style={{
+                    width: "15px",
+                    height: "15px",
+                    borderRadius: "50%",
+                    backgroundColor: "#EB001B",
+                  }}
+                ></div>
+              </div>
+            ) : params?.formattedValue == "Gold-Green" ? (
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  gap: "2px",
+                }}
+              >
+                <div
+                  style={{
+                    width: "15px",
+                    height: "15px",
+                    borderRadius: "50%",
+                    backgroundColor: "#FFD700",
+                  }}
+                ></div>
+                <div
+                  style={{
+                    width: "15px",
+                    height: "15px",
+                    borderRadius: "50%",
+                    backgroundColor: "#37BB54",
+                  }}
+                ></div>
+              </div>
+            ) : null}
           </div>
-        )
-      }
+        );
+      },
     },
     {
       field: "doc_Id",
@@ -214,28 +267,38 @@ export default function Result() {
       width: 100,
       renderCell: (params) => {
         const onClickDelete = async () => {
-          const data = params.row
-          setColor(data?.result_color)
-          setNumber(data?.result_number)
-          setUpdateDatas(data)
-          handleOpen()
+          const data = params.row;
+          setColor(data?.result_color);
+          setNumber(data?.result_number);
+          setUpdateDatas(data);
+          handleOpen();
         };
         return (
           <div>
-            <Button variant="outlined" id={params?.formattedValue} onClick={onClickDelete}>Update</Button>
+            <Button
+              variant="outlined"
+              id={params?.formattedValue}
+              onClick={onClickDelete}
+            >
+              Update
+            </Button>
           </div>
-        )
-      }
-    }
-  ]
+        );
+      },
+    },
+  ];
 
   return (
-    <div className='result'>
-      <h1 className='newUserTitle'>Betting Result</h1>
+    <div className="result">
+      <h1 className="newUserTitle">Betting Result</h1>
       <div>
-        <Box sx={{ width: '100%' }}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+        <Box sx={{ width: "100%" }}>
+          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              aria-label="basic tabs example"
+            >
               <Tab label="Pekka" {...a11yProps(0)} />
               <Tab label="Healer" {...a11yProps(1)} />
               <Tab label="Wizard" {...a11yProps(2)} />
@@ -244,7 +307,7 @@ export default function Result() {
           </Box>
           <TabPanel value={value} index={0}>
             <h2>Pekka</h2>
-            <div style={{ height: 600, width: '100%' }}>
+            <div style={{ height: 600, width: "100%" }}>
               <DataGrid
                 rows={data}
                 columns={columns}
@@ -255,7 +318,7 @@ export default function Result() {
           </TabPanel>
           <TabPanel value={value} index={1}>
             <h2>Healer</h2>
-            <div style={{ height: 600, width: '100%' }}>
+            <div style={{ height: 600, width: "100%" }}>
               <DataGrid
                 rows={data}
                 columns={columns}
@@ -267,7 +330,7 @@ export default function Result() {
           </TabPanel>
           <TabPanel value={value} index={2}>
             <h2>Wizard</h2>
-            <div style={{ height: 600, width: '100%' }}>
+            <div style={{ height: 600, width: "100%" }}>
               <DataGrid
                 rows={data}
                 columns={columns}
@@ -279,7 +342,7 @@ export default function Result() {
           </TabPanel>
           <TabPanel value={value} index={3}>
             <h2>Archer</h2>
-            <div style={{ height: 600, width: '100%' }}>
+            <div style={{ height: 600, width: "100%" }}>
               <DataGrid
                 rows={data}
                 columns={columns}
@@ -327,41 +390,52 @@ export default function Result() {
               onChange={handleChangeSelectNumber}
               key={[color, number]}
             >
-              {
-                color == "Red"
-                  ? [2, 4, 6, 8]?.map((item, index) => { return (<MenuItem id={index} value={item}>{item}</MenuItem>) })
-                  : color == "Green"
-                    ? [1, 3, 7, 9]?.map((item, index) => (<MenuItem value={item}>{item}</MenuItem>))
-                    : color == "Gold-Red"
-                      ? [0]?.map((item, index) => (<MenuItem value={item}>{item}</MenuItem>))
-                      : color == "Gold-Green"
-                        ? [5]?.map((item, index) => (<MenuItem value={item}>{item}</MenuItem>))
-                        : null
-              }
-
+              {color == "Red"
+                ? [2, 4, 6, 8]?.map((item, index) => {
+                    return (
+                      <MenuItem id={index} value={item}>
+                        {item}
+                      </MenuItem>
+                    );
+                  })
+                : color == "Green"
+                ? [1, 3, 7, 9]?.map((item, index) => (
+                    <MenuItem value={item}>{item}</MenuItem>
+                  ))
+                : color == "Gold-Red"
+                ? [0]?.map((item, index) => (
+                    <MenuItem value={item}>{item}</MenuItem>
+                  ))
+                : color == "Gold-Green"
+                ? [5]?.map((item, index) => (
+                    <MenuItem value={item}>{item}</MenuItem>
+                  ))
+                : null}
             </Select>
           </FormControl>
           <div
-            style={{ marginTop: "15px", display: "flex", justifyContent: "flex-end", gap: 20 }}
+            style={{
+              marginTop: "15px",
+              display: "flex",
+              justifyContent: "flex-end",
+              gap: 20,
+            }}
           >
             <Button
               variant="outlined"
               onClick={async () => {
-                await saveData()
-                await updateData()
+                await saveData();
+                await updateData();
               }}
             >
               Save
             </Button>
-            <Button
-              variant="outlined"
-              onClick={handleClose}
-            >
+            <Button variant="outlined" onClick={handleClose}>
               Close
             </Button>
           </div>
         </Box>
       </Modal>
     </div>
-  )
+  );
 }
