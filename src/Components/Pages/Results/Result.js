@@ -50,7 +50,7 @@ export default function Result() {
     let tmpData = updateDatas?.data;
     tmpData["result_color"] = color;
     tmpData["result_number"] = number;
-    tmpData["status"] = true;
+    tmpData["manualUpdate"] = true;
 
     await updateDoc(walletRef, tmpData).then((data) => {
       console.log(data);
