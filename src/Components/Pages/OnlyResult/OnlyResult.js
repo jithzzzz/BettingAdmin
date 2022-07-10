@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./Result.css";
+import "./OnlyResult.css";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -28,7 +28,7 @@ import {
 import { db } from "../../../firebase.config";
 import { async } from "@firebase/util";
 
-export default function Result() {
+export default function OnlyResult() {
   const [value, setValue] = React.useState(0);
   const [data, setDate] = useState([]);
   const [open, setOpen] = React.useState(false);
@@ -175,7 +175,7 @@ export default function Result() {
 
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
-    { field: "spell_Id", headerName: "Spell ID", width: 70 },
+    { field: "spell_Id", headerName: "Spell ID", width: 130 },
     { field: "spell_date", headerName: "Spell Date", width: 130 },
     { field: "gameName", headerName: "Game", width: 130 },
     { field: "result_color", headerName: "Result Color", width: 130 },
@@ -261,32 +261,7 @@ export default function Result() {
         );
       },
     },
-    {
-      field: "doc_Id",
-      headerName: "Action",
-      width: 100,
-      renderCell: (params) => {
-        const onClickDelete = async () => {
-          const data = params.row;
-          setColor(data?.result_color);
-          setNumber(data?.result_number);
-          setUpdateDatas(data);
-          handleOpen();
-        };
-        return (
-          <div>
-            <Button
-              variant="outlined"
-              id={params?.formattedValue}
-              onClick={onClickDelete}
-            >
-              Update
-            </Button>
-          </div>
-        );
-      },
-    },
-  ];
+      ];
 
   return (
     <div className="result">
@@ -376,7 +351,6 @@ export default function Result() {
             >
               <MenuItem value="Red">Red</MenuItem>
               <MenuItem value="Green">Green</MenuItem>
-              {/* <MenuItem value="Gold">Gold</MenuItem> */}
               <MenuItem value="Gold-Red">Gold-Red</MenuItem>
               <MenuItem value="Gold-Green">Gold-Green</MenuItem>
             </Select>
@@ -403,10 +377,6 @@ export default function Result() {
                 ? [1, 3, 7, 9]?.map((item, index) => (
                     <MenuItem value={item}>{item}</MenuItem>
                   ))
-                //   : color == "Gold"
-                // ? [0, 5]?.map((item, index) => (
-                //     <MenuItem value={item}>{item}</MenuItem>
-                //   ))
                 : color == "Gold-Red"
                 ? [0]?.map((item, index) => (
                     <MenuItem value={item}>{item}</MenuItem>
