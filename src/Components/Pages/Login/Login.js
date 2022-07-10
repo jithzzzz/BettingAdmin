@@ -7,6 +7,10 @@ import { collection, getDocs, addDoc, query, where, doc, orderBy, limit, updateD
 import { db } from "../../../firebase.config"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from '../../../Auth/Auth'
+import { Box } from '@material-ui/core'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 export default function Login() {
   const navigate = useNavigate()
   const [email, setEmail] = useState()
@@ -36,6 +40,7 @@ export default function Login() {
       })
       console.log(usersTmpData)
       if (usersTmpData?.length > 0) {
+       
         localStorage.setItem("user_token", usersTmpData?.[0]?.data?.email + usersTmpData?.[0]?.data?.userName)
         auth.login(
           {
@@ -46,6 +51,15 @@ export default function Login() {
           }
         )
         navigate("/")
+      }
+      else{
+        console.log("incorrect");
+        toast.error("Login failed", {
+          position: toast.POSITION.TOP_CENTER,
+          className: 'foo-bar',
+          autoClose: 5000 
+        });
+        
       }
     }
   }
@@ -60,11 +74,21 @@ export default function Login() {
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "column",
-        backgroundColor: "black",
+        backgroundColor: "#f7d083",
         margin: "0px",
         padding: "0px"
       }}
     >
+      <ToastContainer 
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover/>
       <div
         style={{
           display: "flex",
@@ -72,7 +96,7 @@ export default function Login() {
           justifyContent: "center",
           alignItems: "center",
           width: "550px",
-          backgroundColor: "#d0d2d6",
+          backgroundColor: "#83f7ee",
           paddingTop: 80,
           paddingBottom: 80,
           paddingLeft: 40,
@@ -97,6 +121,7 @@ export default function Login() {
             label="Email Id"
             defaultValue=""
             fullWidth
+            backgroundColor="#d4d1cf"
             type="email"
             value={email}
             onChange={(txt) => { setEmail(txt?.target.value) }}
@@ -111,9 +136,13 @@ export default function Login() {
             value={password}
             onChange={(txt) => { setPassword(txt?.target.value) }}
           />
+          
           <Button variant="contained" onClick={() => { loginSubmit() }}>Login</Button>
         </div>
+        
       </div>
+      
+     
     </div>
   )
 }
