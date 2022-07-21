@@ -17,12 +17,14 @@
     margin-top: 10px;
     margin-left: 10px;
     margin-bottom: 10px;
+    
 }
 
 .sidebarTitle {
     font-size: 13px;
     color: rgb(187, 186, 186);
     padding: 10px;
+    color: #fc5603;
 }
 
 .sdebarList {
@@ -39,6 +41,7 @@
     font-size: 15px;
     border-radius: 10px;
     margin: 5px;
+    color:forestgreen
 
 
 }
@@ -51,5 +54,6 @@
 .sidebarIcon {
     margin-right: 5px;
     font-size: 20px !important;
+    color:#4ddb37;
 
 }

@@ -4,19 +4,23 @@ import { DeleteOutline } from '@material-ui/icons'
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import "firebase/firestore"
-import { collection, getDocs, addDoc, query, where, doc, orderBy, limit, updateDoc, onSnapshot } from "firebase/firestore"
+import { collection, getDocs, addDoc, query, where, doc,
+   orderBy, limit, updateDoc, onSnapshot,deleteDoc } from "firebase/firestore"
 import { db } from "../../../firebase.config"
+import { ToastContainer, toast } from 'react-toastify';
+import { useAuth } from '../../../Auth/Auth'
 
 
 function UserList() {
   const [data, setData] = useState([])
+  const auth = useAuth()
 
   useEffect(() => {
     async function getUsersLists() {
       const startOfDay = new Date()
       startOfDay.setHours(0, 0, 0, 0)
       const usersRef = collection(db, "users")
-      const usersQuery = query(usersRef, where("createdAt", ">=", startOfDay))
+      const usersQuery = query(usersRef)
       const usersQuerySnaphshot = await getDocs(usersQuery)
       let usersTmpData = []
       usersQuerySnaphshot.forEach((doc) => {
@@ -25,9 +29,24 @@ function UserList() {
       setData(usersTmpData)
     }
     getUsersLists()
+
+   
   }, [])
 
-  const handleDelete = (id) => { setData(data.filter((item) => item.id !== id)) }
+  const handleDelete = async (id, name) => { 
+    setData(data.filter((item) => item.id !== id))
+    console.log("Hi")
+  console.log(id) 
+  await deleteDoc(doc(db,"users",id))
+  .then(()=>toast.success("User "+name+" Deleted")
+ 
+  ).then(()=>collection(db,"users").document(auth.getInstance().id).delete()).catch((error)=>alert(error))
+  }
+
+  const handleEdit = (name)=>{
+
+    toast.info( name+ " Cannot be Edited") 
+  }
 
   const columns = [
     {
@@ -63,10 +82,20 @@ function UserList() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={'/users/' + params.row.id}>
-              <button className='userListEdit'>Edit</button>
-            </Link>
-            <DeleteOutline className='userListDelete' onClick={() => handleDelete(params.row.id)} />
+          <ToastContainer 
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover/>
+            
+              <button className='userListEdit' onClick={()=>handleEdit(params.row.name)}>Edit</button>
+           
+            <DeleteOutline className='userListDelete' onClick={() => handleDelete(params.row.id, params.row.name)} />
           </>
 
         );
