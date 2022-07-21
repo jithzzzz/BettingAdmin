@@ -20,7 +20,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend
+  Legend,
+  LabelList
 } from "recharts";
 import { toLower } from 'lodash'
 
@@ -80,8 +81,29 @@ function BarCharts({ dataset, pekka, PID, HID, WID, AID }) {
     setSpellId(`${pekka?.[0]?.spell_date}/${pekka?.[0]?.spell_Id}`)
   }, [pekka])
 
+
+  const renderCustomizedLabel = (props) => {
+    const { x, y, width, value } = props;
+    const radius = 7;
+  
+    return (
+      <g >
+        {/* <circle cx={x + width / 2} cy={y - radius} r={radius} fill="#8884d8" /> */}
+        <text
+          x={x + width / 2}
+          y={260}
+          fill="#8884d8"
+          textAnchor="end"
+          dominantBaseline="middle"
+        >
+          {value}
+        </text>
+      </g>
+    );
+  };
+
   const ChartSmall = ({ gameName, id }) => {
-    let red = 0
+    let red = 50
     let green = 0
     let gold = 0
     let zero = 0
@@ -146,25 +168,51 @@ function BarCharts({ dataset, pekka, PID, HID, WID, AID }) {
       },
     ]
     return (
-      <BarChart width={250} height={240} data={ChartData}>
+      <BarChart width={250} height={340} data={ChartData}>
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="red" fill="red" />
-        <Bar dataKey="green" fill="green" />
-        <Bar dataKey="gold" fill="gold" />
+        <Bar dataKey="red" fill="red">
+          <LabelList dataKey="red" content={renderCustomizedLabel} />
+        </Bar>
+        <Bar dataKey="green" fill="green">
+          <LabelList dataKey="green" content={renderCustomizedLabel} />
+        </Bar>
+        <Bar dataKey="gold" fill="gold">
+          <LabelList dataKey="gold" content={renderCustomizedLabel} />
+        </Bar>
 
-        <Bar dataKey="N0" fill="gray" />
-        <Bar dataKey="N1" fill="gray" />
-        <Bar dataKey="N2" fill="gray" />
-        <Bar dataKey="N3" fill="gray" />
-        <Bar dataKey="N4" fill="gray" />
-        <Bar dataKey="N5" fill="gray" />
-        <Bar dataKey="N6" fill="gray" />
-        <Bar dataKey="N7" fill="gray" />
-        <Bar dataKey="N8" fill="gray" />
-        <Bar dataKey="N9" fill="gray" />
+        <Bar dataKey="N0" fill="gray" >
+          <LabelList dataKey="N0" content={renderCustomizedLabel} />
+        </Bar>
+        <Bar dataKey="N1" fill="gray" >
+          <LabelList dataKey="N1" content={renderCustomizedLabel} />
+        </Bar>
+        <Bar dataKey="N2" fill="gray" >
+          <LabelList dataKey="N2" content={renderCustomizedLabel} />
+        </Bar>
+        <Bar dataKey="N3" fill="gray" >
+          <LabelList dataKey="N3" content={renderCustomizedLabel} />
+        </Bar>
+        <Bar dataKey="N4" fill="gray" >
+          <LabelList dataKey="N4" content={renderCustomizedLabel} />
+        </Bar>
+        <Bar dataKey="N5" fill="gray" >
+          <LabelList dataKey="N5" content={renderCustomizedLabel} />
+        </Bar>
+        <Bar dataKey="N6" fill="gray" >
+          <LabelList dataKey="N6" content={renderCustomizedLabel} />
+        </Bar>
+        <Bar dataKey="N7" fill="gray" >
+          <LabelList dataKey="N7" content={renderCustomizedLabel} />
+        </Bar>
+        <Bar dataKey="N8" fill="gray" >
+          <LabelList dataKey="N8" content={renderCustomizedLabel} />
+        </Bar>
+        <Bar dataKey="N9" fill="gray" >
+          <LabelList dataKey="N9" content={renderCustomizedLabel} />
+        </Bar>
       </BarChart>
     )
   }
