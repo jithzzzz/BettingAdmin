@@ -21,9 +21,9 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
-  LabelList
+  LabelList,
+  ResponsiveContainer
 } from "recharts";
-import { toLower } from 'lodash'
 
 
 function a11yProps(index) {
@@ -84,16 +84,16 @@ function BarCharts({ dataset, pekka, PID, HID, WID, AID }) {
 
   const renderCustomizedLabel = (props) => {
     const { x, y, width, value } = props;
-    const radius = 7;
+    const radius = 10;
   
     return (
-      <g >
+      <g>
         {/* <circle cx={x + width / 2} cy={y - radius} r={radius} fill="#8884d8" /> */}
         <text
           x={x + width / 2}
-          y={260}
+          y={y - radius}
           fill="#8884d8"
-          textAnchor="end"
+          textAnchor="middle"
           dominantBaseline="middle"
         >
           {value}
@@ -102,6 +102,7 @@ function BarCharts({ dataset, pekka, PID, HID, WID, AID }) {
     );
   };
 
+  
   const ChartSmall = ({ gameName, id }) => {
     let red = 0
     let green = 0
@@ -168,12 +169,24 @@ function BarCharts({ dataset, pekka, PID, HID, WID, AID }) {
       },
     ]
     return (
-      <BarChart width={250} height={340} data={ChartData}>
+      <ResponsiveContainer width={430} height={400}>
+      <BarChart
+      width={400}
+      height={400}
+      data={ChartData}
+      margin={{
+        top: 60,
+        right: 30,
+        left: 20,
+        bottom: 5
+      }}
+    >
         <XAxis dataKey="name" />
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="red" fill="red">
+        <CartesianGrid strokeDasharray="3 3" />
+        <Bar dataKey="red" fill="red" maxPointSize={100}>
           <LabelList dataKey="red" content={renderCustomizedLabel} />
         </Bar>
         <Bar dataKey="green" fill="green">
@@ -214,6 +227,7 @@ function BarCharts({ dataset, pekka, PID, HID, WID, AID }) {
           <LabelList dataKey="N9" content={renderCustomizedLabel} />
         </Bar>
       </BarChart>
+      </ResponsiveContainer>
     )
   }
 
