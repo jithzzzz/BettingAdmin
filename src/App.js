@@ -35,6 +35,8 @@ import Result from "./Components/Pages/Results/Result"
 import "./firebase.config"
 import { AuthProvider, useAuth } from "../src/Auth/Auth"
 import { RequireAuth } from "./Auth/RequireAuth"
+import Slider from "./Components/Pages/Slider/Slider"
+import OnlyResult from "./Components/Pages/OnlyResult/OnlyResult"
 
 function App() {
 
@@ -62,7 +64,7 @@ function App() {
         <Routes >
           <Route exact path="/" element={<RequireAuth><Home /></RequireAuth>}></Route>
           <Route path="/users" element={<RequireAuth><UserList /></RequireAuth>}></Route>
-          <Route path="/user/:userId" element={<RequireAuth><User /></RequireAuth>}></Route>
+          <Route path="/user" element={<RequireAuth><User /></RequireAuth>}></Route>
           <Route path="/newUser" element={<RequireAuth><NewUser /></RequireAuth>}></Route>
           <Route path="/analytics" element={<RequireAuth><AnalyticsPage /></RequireAuth>}></Route>
           <Route path="/addAdmin" element={<RequireAuth><ManageAdmin /></RequireAuth>}></Route>
@@ -73,6 +75,8 @@ function App() {
           <Route path="/manual-update" element={<RequireAuth><ManualUpdate /></RequireAuth>}></Route>
           <Route path="/result" element={<RequireAuth><Result /></RequireAuth>}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/slider"element={<RequireAuth><Slider/></RequireAuth>}></Route>
+          <Route path="/resultOnly"element={<RequireAuth><OnlyResult/></RequireAuth>}></Route>
         </Routes>
 
       </Router>
