@@ -103,7 +103,7 @@ function BarCharts({ dataset, pekka, PID, HID, WID, AID }) {
   };
 
   const ChartSmall = ({ gameName, id }) => {
-    let red = 50
+    let red = 0
     let green = 0
     let gold = 0
     let zero = 0
