@@ -128,8 +128,8 @@ function Home() {
         AID={spellData_Archer?.[0]?.id}
       />
       <div className='homeWidget'>
-        <WidgetSmall />
-        <WidgetLarge />
+       {/* <WidgetSmall />
+        <WidgetLarge /> */}
 
       </div>
       {/* <div className='homeWidget'>
